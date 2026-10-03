@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <style>
+        body {
+            display: flex;
+            color: aliceblue;
+            background-color:black;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+
+        }
+        .titulo {
+            position: absolute;   /* Desgruda o título do fluxo da calculadora */
+            top: 100px;            /* Afasta 20px do topo da tela */
+            left: 50%;            /* Move o início do texto para o meio exato da largura */
+            color: black;
+            background-color: aliceblue;
+          transform: translateX(-50%); /* Ajusta o centro do próprio texto no meio da tela */
+          font-family: Arial, sans-serif;
+          margin: 0;
+          font-size: 28px;
+          letter-spacing: 2px;  /* Dá um espaço elegante entre as letras */
+        }
+        .calculadora {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-style: initial;
+             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        #visor{
+            width: 25%;
+            height: 10%;
+            border-radius: 20px;
+            font-size: 20px;
+            text-align: right;
+            margin-bottom: 10px;
+
+        }
+        .botoes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+        button{
+            padding: 15px;
+            font-size: 12px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="titulo">CALCULADORA SIMPLES</h1>
+    <input type="text" id="visor" readonly>
+
+    <div class="botoes">
+        <button onclick="limpar()">C</button>
+        <button onclick="apagar()">APAGAR</button>
+        <button onclick="inserir('*')">*</button>
+        <button onclick="inserir('-')">-</button>
+        <button onclick="inserir('/')">/</button>
+        <button onclick="inserir('+')">+</button>
+        <button onclick="calcularRaiz()" class="btn-especial">√</button>
+        <button onclick="calcular('=')">=</button>
+        <!-- CORREÇÃO 2: Todos os botões agora chamam a MESMA função: inserir() -->
+        <button onclick="inserir('0')">0</button>
+        <button onclick="inserir('1')">1</button>
+        <button onclick="inserir('2')">2</button>
+        <button onclick="inserir('3')">3</button>
+        <button onclick="inserir('4')">4</button>
+        <button onclick="inserir('5')">5</button>
+        <button onclick="inserir('6')">6</button>
+        <button onclick="inserir('7')">7</button>
+        <button onclick="inserir('8')">8</button>
+        <button onclick="inserir('9')">9</button>
+        <button onclick="inserir('.')">.</button>
+    </div>
+
+<script>
+// Captura o elemento do visor
+const visor = document.getElementById('visor');
+function inserir(numero) {
+    visor.value += numero;
+}
+function limpar() {
+    visor.value = '';
+}
+function apagar() {
+    visor.value = visor.value.slice(0, -1)
+}
+function calcular() {
+    try{
+        visor.value = eval(visor.value)
+    } catch(error) {
+        visor.value =('Erro!')
+    }
+}
+function calcularRaiz() {
+    try {
+        // Primeiro resolvemos qualquer conta pendente no visor (ex: se o visor tiver '16+9', vira '25')
+        let valorAtual = eval(visor.value);
+        
+        // Se o visor estiver vazio ou der erro na conta acima, não faz nada
+        if (valorAtual !== undefined && valorAtual !== '') {
+            // Aplica o Math.sqrt() no número resolvido
+            visor.value = Math.sqrt(Number(valorAtual));
+        }
+    } catch(error) {
+        visor.value ('Error!')
+    }
+}    
+</script>
+</body>
+</html>
